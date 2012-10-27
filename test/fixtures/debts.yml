@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  amount: 1
+  person_id: 1
+  duedate: 2012-05-25
+  status: false
+
+two:
+  amount: 1
+  person_id: 1
+  duedate: 2012-05-25
+  status: false

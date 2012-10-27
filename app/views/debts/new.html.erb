@@ -1,0 +1,47 @@
+<% title "Add a New Friend" %>
+<div class="container">
+
+<%= form_for @debt, :url => { :action => "create" }, :html => {:class => "form-horizontal"} do |f| %>
+  <%= f.label :amount %>
+  <%= f.text_field :amount %><br />  
+  <%= f.label "Friend" %>
+  <%=collection_select(:debt, :person_id, Person.all, :id, :name) %><br />   	
+  <%= f.label "Date" %>
+  <%= f.text_field :duedate, :id => "datepicker" %><br /> <br /> 
+  
+  <%= f.button "Add New Load", :id => "sendBut", :class=> "btn btn-primary" %>
+<% end%>
+
+</div>
+<script>
+	$(document).ready(function() {
+			
+			$(function() {
+				$( "#datepicker" ).datepicker({ dateFormat: "yy-mm-dd"});
+			});
+			
+			$("#sendBut").click(function(e) {
+				var k = $('#debt_person_id option:selected').val(); 	
+		  		$.ajax({
+					 type: 'GET',
+					 dataType: 'json',
+					 url: '/personStatus/'+k,
+					 success: function(data) {
+								if(data.debt > 0){
+									var r=confirm("Your friend has unpaid debts, Do you still want to give loan to him/her?");	
+									if(!r){
+										e.preventDefault();
+									}else{
+										$("#new_debt").submit();
+									}				
+								}else{
+										$("#new_debt").submit();
+								}	
+						}
+				});				
+				e.preventDefault();
+			});			
+			
+	});
+
+</script>

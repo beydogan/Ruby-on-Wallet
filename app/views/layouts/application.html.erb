@@ -1,0 +1,48 @@
+<% @ac = action_name%>
+<% @co = controller_name %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ruby On Wallet - <%= content_for?(:title) ? content_for(:title) : "Trace Your Wallet" %></title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "jquery","application" %>
+  <%= csrf_meta_tags %>
+  
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<div class="navbar navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+         
+         	<%=link_to "Ruby On Wallet", root_url, :class=> "brand" %>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li <%="class='active'" if (@co == "wallet" && @ac == "index") %>><%=link_to "Overview", root_url %></li>
+              <li <%="class='active'" if (@co == "people" && @ac == "index") %>><%=link_to "List of Friends", people_path %></li>                          
+              <li <%="class='active'" if (@co == "people" && @ac == "new") %>><%=link_to "Add New Friend", new_person_path %></li>
+              <li <%="class='active'" if (@co == "debts" && @ac == "index") %>><%=link_to "List of Debts", debts_path %></li>              
+              <li <%="class='active'" if (@co == "debts" && @ac == "new") %>><%=link_to "New Debt", new_debt_path %></li>
+          	</ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+   </div>
+    <div class="container">
+     		<% if flash[:notice] %>
+			<div class="alert alert-error">
+    			<%= flash[:notice] %>
+    		</div>
+		<% end %>
+	</div>
+
+<%= yield %>
+
+	
+</body>
+</html>

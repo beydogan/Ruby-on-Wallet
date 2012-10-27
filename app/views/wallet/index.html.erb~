@@ -1,0 +1,75 @@
+<% title "Overview"%>
+<div class="container">
+
+	<div class="container">
+		<div class="row">
+			<div class="span8">
+				<div class="alert alert-info">
+					Your Upcoming Debts in 20 Days
+				</div>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Name</th>
+							<th>Amount</th>
+							<th>Due Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @debts.each do |d| %>
+						<tr>
+							<td><%= d.id %></td>
+							<td><%= Person.find(d.person_id).name %></td>
+							<td>$<%= d.amount %></td>
+							<td><%= d.duedate %></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+			
+			<div class="span4">
+				<div class="well">
+					<div class="alert alert-info">
+					Overview
+					</div>	
+					<div id="chart1"></div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<hr>
+
+	<footer>
+		<p>
+			&copy; Company 2012
+		</p>
+	</footer>
+
+</div>
+<!-- /container -->
+ <script type="text/javascript" language="javascript">
+	$(document).ready(function(){
+	  var data = [
+	    ['Paid', <%=@paidCount%>],['Unpaid', <%=@unpaidCount%>]
+	  ];
+	  var plot1 = jQuery.jqplot ('chart1', [data],
+	    {
+	      seriesDefaults: {
+	        // Make this a pie chart.
+	        renderer: jQuery.jqplot.PieRenderer,
+	        rendererOptions: {
+	          // Put data labels on the pie slices.
+	          // By default, labels show the percentage of the slice.
+	          showDataLabels: true
+	        }
+	      },
+	      legend: { show:true, location: 'e', placement: 'insideGrid'},
+	      seriesColors: [ "#C9FF29", "#E61E3F"]
+	    }
+	  );
+	});
+</script>

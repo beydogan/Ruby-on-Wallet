@@ -1,0 +1,51 @@
+<% title "My Debt List"%>
+<div class="container">
+
+ 	<div class="container">
+ 		<table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>To</th>
+            <th>Amount</th>
+            <th>Due Date</th>
+            <th>Status</th>
+         	<th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+       		<% @debts.each do |d| %>
+       			<% p = Person.find(d.person_id) %>
+				<tr style="background-color: 
+				<% if d.status? %>#F1FC77<% else%>#F25C6B<% end%>">			
+				<td><%=d.id %></td>
+				<td><%=p.name%></td>
+				<td>$<%=d.amount %></td>
+				<td><%=d.duedate %></td>
+				<td><% if d.status? %>
+					Paid
+					<% else%>
+					Unpaid
+					<% end%>
+				</td>
+				<td>
+					<% if d.status? %>
+					<% else%>
+						<%=link_to("Mark as Paid", d, :method => :markaspaid, :confirm => "Are you sure?") %>
+					<% end%>
+				</td>
+			</tr>
+			<% end %>
+          
+        </tbody>
+        
+      </table>
+	</div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; Ruby On Walle</p>
+      </footer>
+
+    </div> <!-- /container -->
